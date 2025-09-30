@@ -2,8 +2,7 @@ use std::net::SocketAddr;
 use std::sync::Arc;
 use tokio::net::UdpSocket;
 
-/// Convert PCM16 to μ-law (G.711)
-pub fn pcm16_to_ulaw(sample: i16) -> u8 {
+
     let mut s = sample;
     let sign = if s < 0 { 0x80 } else { 0 };
     if s < 0 {
@@ -15,7 +14,8 @@ pub fn pcm16_to_ulaw(sample: i16) -> u8 {
     u
 }
 
-/// Send RTP packet
+#[allow(dead_code)]
+#[allow(dead_code)]
 pub async fn send_rtp(
     socket: &Arc<UdpSocket>,
     target: &SocketAddr,

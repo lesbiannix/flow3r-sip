@@ -5,12 +5,6 @@ use std::sync::Arc;
 use tokio::net::UdpSocket;
 
 /// Register with Eventphone and return RTP target
-pub async fn register(
-    socket: Arc<UdpSocket>,
-    server: SocketAddr,
-    username: &str,
-    password: &str,
-) -> Result<Option<SocketAddr>> {
     let branch = "z9hG4bK-1";
     let call_id = "1001@flow3r";
     let cseq = 1;
@@ -59,7 +53,7 @@ pub async fn register(
 }
 
 /// Extract WWW-Authenticate header
-fn parse_www_authenticate(response: &str) -> Option<String> {
+
     for line in response.lines() {
         if line.to_lowercase().starts_with("www-authenticate:") {
             return Some(line["WWW-Authenticate:".len()..].trim().to_string());
@@ -100,8 +94,7 @@ fn extract_field(header: &str, field: &str) -> Option<String> {
     Some(header[start..end].to_string())
 }
 
-/// Extract SDP payload
-pub fn extract_sdp(response: &str) -> Option<&str> {
+
     response.split("\r\n\r\n").nth(1)
 }
 
@@ -129,6 +122,8 @@ pub fn parse_sdp_rtp(sdp: &str) -> Option<SocketAddr> {
 }
 
 /// Spawn SIP listener
+#[allow(dead_code)]
+#[allow(dead_code)]
 pub fn spawn_listener(socket: Arc<UdpSocket>) {
     tokio::spawn(async move {
         let mut buf = vec![0u8; 1500];
