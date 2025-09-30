@@ -1,0 +1,10 @@
+[sip]
+server = "hg.eventphone.de"
+port = 5060
+username = "4309"
+password = "Y4tpoglFxHWg"
+extension = "0310"  # optional test extension
+
+[rtp]
+local_port = 4000
+
