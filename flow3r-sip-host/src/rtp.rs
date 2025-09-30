@@ -2,20 +2,18 @@ use std::net::SocketAddr;
 use std::sync::Arc;
 use tokio::net::UdpSocket;
 
-
+pub fn pcm_to_ulaw(sample: i16) -> u8 {
     let mut s = sample;
     let sign = if s < 0 { 0x80 } else { 0 };
     if s < 0 {
-        s = -s
-    };
+        s = -s;
+    }
     let mut u = ((s >> 3) & 0x1F) as u8;
     u |= 0x70;
     u ^= sign ^ 0x55;
     u
 }
 
-#[allow(dead_code)]
-#[allow(dead_code)]
 pub async fn send_rtp(
     socket: &Arc<UdpSocket>,
     target: &SocketAddr,
